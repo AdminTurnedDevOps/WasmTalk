@@ -1,31 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gowasm
+  name: wasm-spin
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: gowasm
-  replicas: 2
+      app: wasm-spin
   template:
     metadata:
       labels:
-        app: gowasm
+        app: wasm-spin
     spec:
       runtimeClassName: wasmtime-spin-v2
       containers:
-      - name: gowasm
-        image: adminturneddevops/gowasm
-        ports:
-        - containerPort: 8080
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: gowasm
-# spec:
-#   selector:
-#     app: gowasm
-#   ports:
-#     - protocol: TCP
-#       port: 8080
+        - name: spin-hello
+          image: ghcr.io/spinkube/containerd-shim-spin/examples/spin-rust-hello:v0.15.1
+          command: ["/"]
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

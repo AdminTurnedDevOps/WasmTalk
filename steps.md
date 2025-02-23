@@ -16,3 +16,4 @@ https://docs.wasmtime.dev/cli-install.html
 
 Kubernetes: /environment/Kubernetes/
 - Add Wasm Node Pool
+- Deploy app: `deployment.yaml`
