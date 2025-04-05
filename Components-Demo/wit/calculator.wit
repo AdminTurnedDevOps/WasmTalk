@@ -1,0 +1,37 @@
+package tutorial:calculator;
+
+// A record representing a point in 2D space
+record point {
+    x: float32,
+    y: float32,
+}
+
+// A variant representing different calculation errors
+variant calc-error {
+    division-by-zero,
+    overflow,
+    underflow,
+}
+
+// A result type that can be either a success or an error
+typedef calc-result = result<float64, calc-error>;
+
+// Calculator interface with various operations
+interface calculator {
+    // Basic arithmetic operations
+    add: func(a: float64, b: float64) -> float64;
+    subtract: func(a: float64, b: float64) -> float64;
+    multiply: func(a: float64, b: float64) -> float64;
+    divide: func(a: float64, b: float64) -> calc-result;
+    
+    // Operation with complex types
+    distance: func(p1: point, p2: point) -> float64;
+    
+    // Operation with list type
+    average: func(numbers: list<float64>) -> float64;
+}
+
+// Define a world that exports the calculator interface
+world calculator-world {
+    export calculator;
+} 
